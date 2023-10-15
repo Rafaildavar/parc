@@ -7,7 +7,7 @@ from aiogram import Bot, Dispatcher, Router, types, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import KeyboardButton, Message, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from aiogram.filters.callback_data import CallbackData
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.utils.keyboard import InlineKeyboardBuilder, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.filters.command import Command
 from aiogram.fsm.state import State, StatesGroup
 
@@ -30,11 +30,19 @@ async def cmd_start(message: types.Message, state: FSMContext):
     )
     await state.get_data()
 
+
+
 @dispatcher.message()
 async def process(message: types.Message):
     await message.answer(
         "Готов к марафону?",
         reply_markup=kb.menu,
+    )
+
+@dispatcher.message()
+async def process(message: types.Message):
+    await message.answer(
+        reply_markup=kb.kb_ready_state,
     )
 
 async def main():

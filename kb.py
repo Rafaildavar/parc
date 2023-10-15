@@ -30,10 +30,7 @@ kb_info_state = InlineKeyboardMarkup(inline_keyboard=kb_info)
 #         reply_markup=kb.kb_ready_state,
 #     )
 
-@dispatcher.callback_query(lambda c: c.data == 'ready')
-async def process_callback_button(message: types.Message, callback_query: types.CallbackQuery):
-    #await bot.answer_callback_query(callback_query.id)
-    await message.answer(
-        "Готов к марафону?",
-        reply_markup=kb.menu,
-    )
+@dispatcher.callback_query(F.data == "ready")
+async def state_ready(callback: types.CallbackQuery):
+    await callback.message.answer(reply_markup = kb_ready_state)
+
